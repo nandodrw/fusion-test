@@ -48,7 +48,7 @@ export default class ContactMethodCreation extends Vue {
   } = {};
 
   async onSubmit() {
-    if (!this.data || !this.selectedMethod || this.selectedMethod.id) return;
+    if (!this.data || !this.selectedMethod || !this.selectedMethod.id) return;
     this.appStore.ShowLoading();
     await this.peopleStore.addContactMethod({
       personId: this.personId || 0,
