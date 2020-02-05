@@ -7,14 +7,16 @@
         label="Contact Information"
         hint="e.g. +1 786 987 888"
         lazy-rules
-        :rules="[ val => val && val.length > 0 || 'Please type the first name']"
+        :rules="[
+          val => (val && val.length > 0) || 'Please type the first name'
+        ]"
       />
 
       <q-select
         v-model="selectedMethod"
         :options="peopleStore.contactMethodTypesList"
-        :option-value="(item) => item === null ? null : item.id"
-        :option-label="(item) => item === null ? 'Null value' : item.desc"
+        :option-value="item => (item === null ? null : item.id)"
+        :option-label="item => (item === null ? 'Null value' : item.desc)"
         label="Standard"
       />
 
@@ -46,7 +48,7 @@ export default class ContactMethodCreation extends Vue {
   } = {};
 
   async onSubmit() {
-    if (!this.data || !this.selectedMethod) return;
+    if (!this.data || !this.selectedMethod || this.selectedMethod.id) return;
     this.appStore.ShowLoading();
     await this.peopleStore.addContactMethod({
       personId: this.personId || 0,

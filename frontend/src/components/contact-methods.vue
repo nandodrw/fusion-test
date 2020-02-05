@@ -1,13 +1,22 @@
 <template>
   <div class="q-pa-md">
     <q-list bordered>
-      <q-item v-for="method in listOfMethods" v-bind:key="method.id" clickable v-ripple>
+      <q-item
+        v-for="method in listOfMethods"
+        v-bind:key="method.id"
+        clickable
+        v-ripple
+      >
         <q-item-section avatar>
           <q-icon v-if="method.type == 'email'" color="primary" name="mail" />
           <q-icon v-if="method.type == 'address'" color="primary" name="home" />
-          <q-icon v-if="method.type == 'phone'" color="primary" name="phonelink_ring" />
+          <q-icon
+            v-if="method.type == 'phone'"
+            color="primary"
+            name="phonelink_ring"
+          />
         </q-item-section>
-        <q-item-section>{{method.info}}</q-item-section>
+        <q-item-section>{{ method.info }}</q-item-section>
         <q-item-section auto-width>
           <div class="btn-container">
             <q-btn
@@ -49,18 +58,16 @@ export default class ContactMethods extends Vue {
   peopleStore = getModule(People, this.$store);
   appStore = getModule(Application, this.$store);
 
-  tempVal = '';
-
   get listOfMethods() {
     // eslint-disable-next-line @typescript-eslint/no-angle-bracket-type-assertion
-    if (this.methods && this.methods[this.personId || -1])
-      return this.methods[this.personId || -1];
+    if (this.methods && this.methods[this.personId || 0])
+      return this.methods[this.personId || 0];
     return [];
   }
 
   deleteMethod(methodId: number) {
     this.peopleStore.deleteContactMethod({
-      personId: this.personId || -1,
+      personId: this.personId || 0,
       methodId: methodId
     });
     this.appStore.ShowLoading();
